@@ -37,7 +37,9 @@ export const init = () => {
     // storageBucket: "uat-pks.appspot.com",
     // messagingSenderId: "925105436158"
   };
-  firebase.initializeApp(config);
+  if (!firebase.apps.length) {
+    firebase.initializeApp(config);
+ }
   database = firebase.database();
 };
 

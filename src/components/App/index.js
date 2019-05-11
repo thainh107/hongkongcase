@@ -141,7 +141,7 @@ class App extends Component {
                 </label>
                 {"  "}
                 <label style={{ fontSize: 22, color: "#b75353" }}>
-                  Số lượng {data.sl}
+                  Số lượng {data.soluong}
                 </label>
               </div>
             </div>

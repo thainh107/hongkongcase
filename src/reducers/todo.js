@@ -1,5 +1,5 @@
 import _ from "lodash";
-import actionType from "constants";
+import actionType from "../constants";
 import Immutable from "seamless-immutable";
 let initialState = Immutable({
   sections: [],

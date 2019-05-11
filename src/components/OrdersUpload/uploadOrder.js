@@ -18,8 +18,6 @@ import "react-dropdown/style.css";
 const options = ["Chờ giao hàng", "Hoàn thành"];
 const defaultOption = options[0];
 
-const publicSheetPKS =
-  "https://docs.google.com/spreadsheets/d/1yR5eXOPsNe9qeF-59wYBZ-Q_fSZ2YM4D4brqeVjaWy4/edit?usp=sharing";
 
 class SheetJSApp extends React.Component {
   constructor(props) {
@@ -32,14 +30,6 @@ class SheetJSApp extends React.Component {
       dataOriginal: [],
       filterStatus: "Chờ giao hàng"
     };
-  }
-
-  componentDidMount() {
-    Tabletop.init({
-      key: publicSheetPKS,
-      callback: this.showInfo,
-      simpleSheet: true
-    });
   }
 
   showInfo = (data, tabletop) => {
@@ -78,7 +68,7 @@ class SheetJSApp extends React.Component {
       });
       const obj = {
         name: newSp[i].name,
-        phanLoai: newSp[i].phanLoai,
+        phanLoai: newSp[i].phanLoai || "",
         soluong
       };
 
