@@ -83,3 +83,24 @@ export const addOriginalData = dataOrigin => {
       });
   };
 };
+
+export const loadOriginalData = () => {
+  return dispatch => {
+    dispatch({
+      type: actionType.LOAD_ORDERDATA_REQUEST
+    });
+    actionsFB.loadOrderOriginal()
+      .then(data => {
+        dispatch({
+          type: actionType.LOAD_ORDERDATA_SUCCESS,
+          payload: data
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: actionType.LOAD_ORDERDATA_FAILED,
+          payload: error
+        });
+      });
+  };
+};

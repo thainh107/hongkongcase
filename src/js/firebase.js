@@ -72,3 +72,15 @@ export const addDataOrigin = dataOrigin => {
   const data = dataOrigin;
   return database.ref("/ordersOriginal/" + date).set(data);
 };
+
+
+export const loadOrderOriginal = () => {
+  return firebase
+    .database()
+    .ref("/ordersOriginal/")
+    .once("value")
+    .then(function(snapshot) {
+      return snapshot.val() || [];
+    });
+};
+

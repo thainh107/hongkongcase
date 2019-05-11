@@ -3,7 +3,8 @@ import actionType from "../constants";
 import Immutable from "seamless-immutable";
 let initialState = Immutable({
   sections: [],
-  dataOrder: []
+  dataOrder: [],
+  ordersOriginal: []
 });
 export default (state = initialState, action) => {
   let newState = _.merge({}, state);
@@ -13,6 +14,9 @@ export default (state = initialState, action) => {
       return newState;
     case actionType.LOAD_ORDERS_SUCCESS:
       newState = Immutable.setIn(state, ["dataOrder"], action.payload);
+      return newState;
+      case actionType.LOAD_ORDERDATA_SUCCESS:
+      newState = Immutable.setIn(state, ["ordersOriginal"], action.payload);
       return newState;
     default:
       return state;
