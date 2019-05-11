@@ -1,7 +1,7 @@
 // import { Router, Route } from "react-router";
 import App from "./App";
-// import UploadOrders from "./OrdersUpload/uploadOrder";
-// import Profit from "./ProfitFromWalletAndOrder/Profit";
+import UploadOrders from "./OrdersUpload/uploadOrder";
+import Profit from "./ProfitFromWalletAndOrder/Profit";
 import React from "react";
 
 import styled from "styled-components";
@@ -52,8 +52,8 @@ export default props => (
       <hr />
 
       <Route exact path="/" component={App} />
-      {/* <Route path="/uploadOrders" component={UploadOrders} />
-      <Route path="/profit" component={Profit} /> */}
+      <Route path="/uploadOrders" component={UploadOrders} />
+      <Route path="/profit" component={Profit} />
     </div>
   </BrowserRouter>
 );

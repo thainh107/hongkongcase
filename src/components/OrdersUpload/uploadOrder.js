@@ -2,7 +2,7 @@ import React from "react";
 import XLSX from "xlsx";
 import _ from "lodash";
 
-import { addOrder, loadOders, addOriginalData } from "actions/todo";
+import { addOrder, loadOders, addOriginalData } from "../../actions/todo";
 
 import { connect } from "react-redux";
 
@@ -60,21 +60,27 @@ class SheetJSApp extends React.Component {
 
     var newSp1 = [];
     for (var i = 0; i < newSp.length; i++) {
-      var soluong = 0;
+      let soluong = 0;
+      // eslint-disable-next-line no-loop-func
       _.forEach(arrProductEqualQuantity, value => {
-        if (
-          newSp[i].name === value.name &&
-          newSp[i].phanLoai === value.phanLoai
-        ) {
-          soluong += parseInt(value.soluong, 2);
+        if (_.isEmpty(value.phanLoai)) {
+          if (newSp[i].name === value.name) {
+            soluong += value.soluong;
+          }
+        } else {
+          if (
+            newSp[i].name === value.name &&
+            newSp[i].phanLoai === value.phanLoai
+          ) {
+            soluong += value.soluong;
+          }
         }
       });
       const obj = {
         name: newSp[i].name,
         phanLoai: newSp[i].phanLoai,
         soluong
-      }
-
+      };
 
       newSp1.push(obj);
     }
@@ -120,15 +126,13 @@ class SheetJSApp extends React.Component {
         SP.push({
           name: data[i][13],
           phanLoai: data[i][18],
-          soluong: data[i][24]
+          soluong: parseInt(data[i][24])
         });
       }
     }
     // var sp1 = Utils.splitTextToArrayOfProduct(SP);
     var newSp1 = this.handleQuantity(SP);
     var newSp2 = this.convertToMaSP(newSp1);
-    console.log("tlog", newSp1);
-    // debugger;
     this.setState({ data: newSp2, dataOriginal: data, fileName });
     // if (!_.isEmpty(data)) {
     //   // this.props.addOriginalData({ data, fileName });
@@ -180,7 +184,7 @@ class SheetJSApp extends React.Component {
             >
               <div>
                 <label style={{ fontSize: 19, color: "black" }}>
-                  * {maSp || name}
+                  * {maSp || data.name}
                 </label>
                 {"  "}
                 <label style={{ fontSize: 22, color: "#ac4dc4" }}>
@@ -245,8 +249,12 @@ class SheetJSApp extends React.Component {
   }
 }
 
-if (typeof module !== "undefined")
-  module.exports = connect(
-    null,
-    { addOrder, loadOders, addOriginalData }
-  )(SheetJSApp);
+// if (typeof module !== "undefined")
+//   module.exports = connect(
+//     null,
+//     { addOrder, loadOders, addOriginalData }
+//   )(SheetJSApp);
+export default connect(
+  null,
+  { addOrder, loadOders, addOriginalData }
+)(SheetJSApp);
