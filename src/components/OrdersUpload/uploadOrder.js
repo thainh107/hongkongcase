@@ -8,16 +8,12 @@ import { connect } from "react-redux";
 
 import DataInput from "../CommonComponent/DataInput";
 import DragDropFile from "../CommonComponent/DragDropFile";
-import * as Utils from "../../utils/utils";
-
-import Tabletop from "tabletop";
 
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
 const options = ["Chờ giao hàng", "Hoàn thành"];
 const defaultOption = options[0];
-
 
 class SheetJSApp extends React.Component {
   constructor(props) {
@@ -111,6 +107,11 @@ class SheetJSApp extends React.Component {
   };
   handleData = (data, fileName) => {
     var SP = [];
+
+    let orders = {};
+    let ordNumbPrevious;
+    let transferNumbPrevious = "";
+    let totalPrevious;
     for (var i = 1; i < data.length; i++) {
       if (data[i][2] === this.state.filterStatus) {
         SP.push({
@@ -119,14 +120,27 @@ class SheetJSApp extends React.Component {
           soluong: parseInt(data[i][24])
         });
       }
+      const obj = {
+        transferNumb: data[i][4] || transferNumbPrevious,
+        name: data[i][13],
+        phanLoai: data[i][18] || "",
+        soluong: parseInt(data[i][24]),
+        total: parseInt(data[i][27]) || totalPrevious
+      };
+      if (data[i][0]) {
+        ordNumbPrevious = data[i][0];
+        transferNumbPrevious = data[i][4] || "";
+        totalPrevious = parseInt(data[i][27]);
+        orders[ordNumbPrevious] = [obj];
+      } else {
+        orders[ordNumbPrevious].push(obj);
+      }
+
     }
-    // var sp1 = Utils.splitTextToArrayOfProduct(SP);
+   
     var newSp1 = this.handleQuantity(SP);
     var newSp2 = this.convertToMaSP(newSp1);
-    this.setState({ data: newSp2, dataOriginal: data, fileName });
-    // if (!_.isEmpty(data)) {
-    //   // this.props.addOriginalData({ data, fileName });
-    // }
+    this.setState({ data: newSp2, dataOriginal: orders });
   };
 
   handleFile = file => {
@@ -151,10 +165,15 @@ class SheetJSApp extends React.Component {
     else reader.readAsArrayBuffer(file);
   };
 
+  mixDataOrderList = () => {
+    this.props.addOriginalData(this.state.dataOriginal);
+  };
+
   _addDataOrder = () => {
     if (this.state.data) {
-      this.props.addOrder(this.state.data);
-      this.setState({ data: [] });
+      this.mixDataOrderList();
+      // this.props.addOrder(this.state.data);
+      // this.setState({ data: [] });
     }
   };
 
@@ -239,11 +258,6 @@ class SheetJSApp extends React.Component {
   }
 }
 
-// if (typeof module !== "undefined")
-//   module.exports = connect(
-//     null,
-//     { addOrder, loadOders, addOriginalData }
-//   )(SheetJSApp);
 export default connect(
   null,
   { addOrder, loadOders, addOriginalData }

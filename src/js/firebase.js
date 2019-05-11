@@ -23,12 +23,20 @@ const datetime =
 
 export const init = () => {
   var config = {
-    apiKey: "AIzaSyAyCf4RHuJyDV6JFqYj3XilQwPuWa8BtQg",
-    authDomain: "getdatafromexcel.firebaseapp.com",
-    databaseURL: "https://getdatafromexcel.firebaseio.com",
-    projectId: "getdatafromexcel",
-    storageBucket: "getdatafromexcel.appspot.com",
-    messagingSenderId: "239716020528"
+    apiKey: "AIzaSyDsSw4LqDBRn-lGIGeHnt3PjkCSQBYOOOE",
+    authDomain: "hkcase-b8d38.firebaseapp.com",
+    databaseURL: "https://hkcase-b8d38.firebaseio.com",
+    projectId: "hkcase-b8d38",
+    storageBucket: "hkcase-b8d38.appspot.com",
+    messagingSenderId: "475890824722",
+    appId: "1: 475890824722: web: 761931254c715043"
+    
+    // apiKey: "AIzaSyAyCf4RHuJyDV6JFqYj3XilQwPuWa8BtQg",
+    // authDomain: "getdatafromexcel.firebaseapp.com",
+    // databaseURL: "https://getdatafromexcel.firebaseio.com",
+    // projectId: "getdatafromexcel",
+    // storageBucket: "getdatafromexcel.appspot.com",
+    // messagingSenderId: "239716020528"
 
     // apiKey: "AIzaSyDJyB9NpZrGTKNfoFFR4RHROamPwPCQN3U",
     // authDomain: "uat-pks.firebaseapp.com",
@@ -45,13 +53,13 @@ export const init = () => {
 
 //add order
 export const addOrderToDB = data => {
-  return database.ref("/orders/" + date).set({ time: datetime, data });
+  return database.ref("/orders/").set({ time: date, data });
 };
 
 export const loadOrderFromDB = () => {
   return firebase
     .database()
-    .ref("/orders/" + date)
+    .ref("/orders/")
     .once("value")
     .then(function(snapshot) {
       return snapshot.val() || [];
@@ -60,7 +68,7 @@ export const loadOrderFromDB = () => {
 
 //add data origin
 export const addDataOrigin = dataOrigin => {
-  const fileName = dataOrigin.fileName.split(".").join("-");
-  const data = dataOrigin.data;
-  return database.ref("/ordersOriginal/" + date + datetime + "-" + fileName).set(data);
+  // const fileName = dataOrigin.fileName.split(".").join("-");
+  const data = dataOrigin;
+  return database.ref("/ordersOriginal/" + date).set(data);
 };
