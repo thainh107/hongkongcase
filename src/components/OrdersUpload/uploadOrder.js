@@ -172,8 +172,8 @@ class SheetJSApp extends React.Component {
   _addDataOrder = () => {
     if (this.state.data) {
       this.mixDataOrderList();
-      // this.props.addOrder(this.state.data);
-      // this.setState({ data: [] });
+      this.props.addOrder(this.state.data);
+      this.setState({ data: [] });
     }
   };
 
