@@ -1,4 +1,5 @@
 import _ from "lodash";
+import moment from "moment";
 
 export const splitTextToArrayOfProduct = arrListOfProduct => {
   var arrAfterSplit = [];
@@ -12,7 +13,7 @@ export const splitTextToArrayOfProduct = arrListOfProduct => {
       arrAfterSplit.push(newArr[0]);
     }
   });
-  
+
   var arrWithCookField = [];
   _.forEach(arrAfterSplit, function(valsp1) {
     var arrSp1 = valsp1.split(";");
@@ -33,4 +34,13 @@ export const splitTextToArrayOfProduct = arrListOfProduct => {
     arrWithCookField.push({ name, phanLoai, sl });
   });
   return arrWithCookField;
+};
+
+export const modifyOrderNumbDate = listOrder => {
+  const list = {};
+  _.map(listOrder, (value, key) => {
+    const header = key.split("*");
+    list[header[0]] = moment(header[1]).format("X");
+  });
+  return list;
 };

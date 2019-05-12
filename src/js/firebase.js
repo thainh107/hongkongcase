@@ -70,7 +70,7 @@ export const loadOrderFromDB = () => {
 export const addDataOrigin = dataOrigin => {
   // const fileName = dataOrigin.fileName.split(".").join("-");
   const data = dataOrigin;
-  return database.ref("/ordersOriginal/" + date).set(data);
+  return database.ref("/ordersOriginal/").set(data);
 };
 
 

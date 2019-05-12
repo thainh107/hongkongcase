@@ -110,10 +110,12 @@ class SheetJSApp extends React.Component {
 
     let orders = {};
     let ordNumbPrevious;
+    let statusPrevious;
+    let ngayDatHangPre;
     let transferNumbPrevious = "";
     let totalPrevious;
     for (var i = 1; i < data.length; i++) {
-      if (data[i][2] === this.state.filterStatus) {
+      if (statusPrevious === this.state.filterStatus) {
         SP.push({
           name: data[i][13],
           phanLoai: data[i][18],
@@ -125,19 +127,21 @@ class SheetJSApp extends React.Component {
         name: data[i][13],
         phanLoai: data[i][18] || "",
         soluong: parseInt(data[i][24]),
-        total: parseInt(data[i][27]) || totalPrevious
+        total: parseInt(data[i][27]) || totalPrevious,
+        date: data[i][1] || ngayDatHangPre
       };
       if (data[i][0]) {
         ordNumbPrevious = data[i][0];
+        ngayDatHangPre = data[i][1];
+        statusPrevious = data[i][2];
         transferNumbPrevious = data[i][4] || "";
         totalPrevious = parseInt(data[i][27]);
-        orders[ordNumbPrevious] = [obj];
+        orders[ordNumbPrevious + "*" + ngayDatHangPre] = [obj];
       } else {
-        orders[ordNumbPrevious].push(obj);
+        orders[ordNumbPrevious + "*" + ngayDatHangPre].push(obj);
       }
-
     }
-   
+
     var newSp1 = this.handleQuantity(SP);
     var newSp2 = this.convertToMaSP(newSp1);
     this.setState({ data: newSp2, dataOriginal: orders });
