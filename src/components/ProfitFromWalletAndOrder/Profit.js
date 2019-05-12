@@ -49,15 +49,15 @@ class Profit extends React.Component {
             {_.map(val, (v, k) => {
               return (
                 <div style={{ paddingLeft: 20 }}>
-                  <label style={{ fontSize: 22, color: "#ac4dc4" }}>
-                    {v.name}
-                  </label>{" "}
-                  <label style={{ fontSize: 22, color: "#ac4dc4" }}>
-                    {v.phanLoai}
+                  <label style={{ fontSize: 19, color: "#5c4dc4" }}>
+                    Tên: {v.name}
+                  </label>{"   "}
+                  <label style={{ fontSize: 23, color: "#ac4dc4" }}>
+                    Phân loại: {v.phanLoai}
                   </label>
                   {"  "}
                   <label style={{ fontSize: 22, color: "#b75353" }}>
-                    Số lượng {v.soluong}
+                    Số lượng: {v.soluong}
                   </label>
                 </div>
               );
@@ -65,7 +65,7 @@ class Profit extends React.Component {
           </div>
           <button
             style={{
-              backgroundColor: "#ac4bc4",
+              backgroundColor: "#5a5387",
               marginLeft: 20,
               width: 150,
               height: 100,
