@@ -147,6 +147,10 @@ class Profit extends React.Component {
     // console.log("tlog state", this.state);
     return (
       <Container>
+        <h3>
+          nhập file excel bên kia trước. rồi ấn Lưu đơn hàng để đẩy dữ liệu lên
+          xong rồi mới search theo mẫu "2019-05-11 00:21"
+        </h3>
         <div
           style={{
             display: "flex",
