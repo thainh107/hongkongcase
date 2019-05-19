@@ -112,7 +112,7 @@ class App extends Component {
   }
 
   renderRow() {
-    if (_.isEmpty(this.props.ordersData))
+    if (_.isEmpty(this.props.ordersData)|| _.isEmpty(this.props.ordersData.data))
       return (
         <div style={{ padding: 20, color: "red", fontSize: 30 }}>
           Chưa nhập đơn hàng ngày hôm nay
