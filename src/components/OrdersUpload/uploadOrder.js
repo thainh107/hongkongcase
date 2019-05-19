@@ -2,7 +2,12 @@ import React from "react";
 import XLSX from "xlsx";
 import _ from "lodash";
 
-import { addOrder, loadOders, addOriginalData } from "../../actions/todo";
+import {
+  addOrder,
+  loadOders,
+  addOriginalData,
+  deleteOriginalData
+} from "../../actions/todo";
 
 import { connect } from "react-redux";
 
@@ -115,13 +120,18 @@ class SheetJSApp extends React.Component {
     let transferNumbPrevious = "";
     let totalPrevious;
     for (var i = 1; i < data.length; i++) {
-      if (statusPrevious === this.state.filterStatus) {
+      if (!_.isEmpty(statusPrevious) && !_.isEmpty(statusPrevious) && statusPrevious === this.state.filterStatus) {
         SP.push({
           name: data[i][13],
           phanLoai: data[i][18],
           soluong: parseInt(data[i][24])
         });
       }
+      // console.log("tlog", {
+      //   name: data[i][13],
+      //   phanLoai: data[i][18],
+      //   soluong: parseInt(data[i][24])
+      // });
       const obj = {
         transferNumb: data[i][4] || transferNumbPrevious,
         name: data[i][13],
@@ -163,7 +173,6 @@ class SheetJSApp extends React.Component {
       const data = XLSX.utils.sheet_to_json(ws, { header: 1 });
       /* Update state */
       this.handleData(data, fileName);
-      // debugger;
     };
     if (rABS) reader.readAsBinaryString(file);
     else reader.readAsArrayBuffer(file);
@@ -173,9 +182,12 @@ class SheetJSApp extends React.Component {
     this.props.addOriginalData(this.state.dataOriginal);
   };
 
+  delete = () => {
+    this.props.deleteOriginalData(this.state.dataOriginal);
+  };
+
   _addDataOrder = () => {
     if (this.state.data) {
-      this.mixDataOrderList();
       this.props.addOrder(this.state.data);
       this.setState({ data: [] });
     }
@@ -243,7 +255,7 @@ class SheetJSApp extends React.Component {
             <div>
               <button
                 style={{
-                  width: 150,
+                  width: 170,
                   height: 50,
                   backgroundColor: "#3e2e42",
                   color: "#ffffff",
@@ -251,8 +263,35 @@ class SheetJSApp extends React.Component {
                 }}
                 onClick={this._addDataOrder}
               >
-                Lưu đơn lấy hàng
+                Lưu danh sách lấy hàng
               </button>
+              <button
+                style={{
+                  width: 170,
+                  height: 50,
+                  backgroundColor: "#3e2e42",
+                  color: "#ffffff",
+                  fontSize: 16,
+                  marginLeft: 35
+                }}
+                onClick={this.mixDataOrderList}
+              >
+                Lưu dữ liệu theo ngày
+              </button>
+
+              {/* <button
+                style={{
+                  width: 170,
+                  height: 50,
+                  backgroundColor: "#3e2e42",
+                  color: "#ffffff",
+                  fontSize: 16,
+                  marginLeft: 35
+                }}
+                onClick={this.delete}
+              >
+                Xóa original
+              </button> */}
             </div>
           </div>
           {this.renderRow()}
@@ -264,5 +303,5 @@ class SheetJSApp extends React.Component {
 
 export default connect(
   null,
-  { addOrder, loadOders, addOriginalData }
+  { addOrder, loadOders, addOriginalData, deleteOriginalData }
 )(SheetJSApp);

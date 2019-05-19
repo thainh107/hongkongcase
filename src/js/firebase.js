@@ -68,9 +68,8 @@ export const loadOrderFromDB = () => {
 
 //add data origin
 export const addDataOrigin = dataOrigin => {
-  // const fileName = dataOrigin.fileName.split(".").join("-");
   const data = dataOrigin;
-  return database.ref("/ordersOriginal/").set(data);
+  return database.ref("/ordersOriginal/").update(data);
 };
 
 
@@ -82,5 +81,10 @@ export const loadOrderOriginal = () => {
     .then(function(snapshot) {
       return snapshot.val() || [];
     });
+};
+
+//add data origin
+export const deleteDataOrigin = () => {
+  return database.ref("/ordersOriginal/").remove();
 };
 

@@ -42,7 +42,7 @@ export default props => (
           <NewLink to="/">Trang chính</NewLink>
         </Wrapper>
         <Wrapper>
-          <NewLink to="/uploadOrders">Lấy hàng từ file xls</NewLink>
+          <NewLink to="/uploadOrders">Nhập file excel</NewLink>
         </Wrapper>
         <Wrapper>
           <NewLink to="/profit">Lợi nhuận</NewLink>

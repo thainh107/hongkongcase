@@ -104,3 +104,24 @@ export const loadOriginalData = () => {
       });
   };
 };
+
+export const deleteOriginalData = () => {
+  return dispatch => {
+    dispatch({
+      type: actionType.DELETE_ORDERDATA_REQUEST
+    });
+    actionsFB.deleteDataOrigin()
+      .then(data => {
+        dispatch({
+          type: actionType.DELETE_ORDERDATA_SUCCESS,
+          payload: data
+        });
+      })
+      .catch(error => {
+        dispatch({
+          type: actionType.DELETE_ORDERDATA_FAILED,
+          payload: error
+        });
+      });
+  };
+};
