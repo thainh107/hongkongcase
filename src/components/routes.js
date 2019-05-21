@@ -2,6 +2,7 @@
 import App from "./App";
 import UploadOrders from "./OrdersUpload/uploadOrder";
 import Profit from "./ProfitFromWalletAndOrder/Profit";
+import MergeImg from "./CombineImage/index";
 import React from "react";
 
 import styled from "styled-components";
@@ -13,13 +14,13 @@ const Container = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  height: 12vw;
+  height: 6vw;
 `;
 
 const Wrapper = styled.div`
   margin: 10px;
   background-color: black;
-  width: 25%;
+  width: 15%;
   border-radius: 5px;
   display: flex;
   flex-direction: row;
@@ -30,7 +31,7 @@ const Wrapper = styled.div`
 const NewLink = styled(Link)`
   text-decoration: none;
   color: white;
-  font-size: 2.5vw;
+  font-size: 1.5vw;
 `;
 
 export default props => (
@@ -47,6 +48,9 @@ export default props => (
         <Wrapper>
           <NewLink to="/profit">Lợi nhuận</NewLink>
         </Wrapper>
+        <Wrapper>
+          <NewLink to="/mergeImg">File in</NewLink>
+        </Wrapper>
       </Container>
 
       <hr />
@@ -54,6 +58,7 @@ export default props => (
       <Route exact path="/" component={App} />
       <Route path="/uploadOrders" component={UploadOrders} />
       <Route path="/profit" component={Profit} />
+      <Route path="/mergeImg" component={MergeImg} />
     </div>
   </BrowserRouter>
 );
